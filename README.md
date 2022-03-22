@@ -8,7 +8,7 @@ Operating Systems Exercises
 - cd apue.3e/
 - make all
 - sudo cp include/apue.h /usr/include/
-sudo cp lib/*  /usr/lib/
+- sudo cp lib/*  /usr/lib/
 
 please note: **the directories "/usr/include/" and "/usr/lib" may be "/usr/local/include" and "/usr/local/lib"**
 
