@@ -1,6 +1,6 @@
 #include <sys/types.h>
 #include <dirent.h>
-#include "../apue.h"
+#include <apue.h>
 
 int main(int argc, char *argv[]){
     DIR *dp;
