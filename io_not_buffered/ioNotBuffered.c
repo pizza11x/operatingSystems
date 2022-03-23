@@ -1,7 +1,7 @@
 #include "./apue.h"
 #define BUFFER_SIZE 8192
 
-int main(void){
+int main(){
     int n;
     char buf[BUFFER_SIZE];
     while((n = read(STDIN_FILENO, buf, BUFFER_SIZE)) > 0){
