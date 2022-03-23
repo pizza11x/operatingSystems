@@ -1,4 +1,4 @@
 //TO TEST THE EXERCISE2 WRITE SOMETHING THERE
-This is a second test
+This is another test
 
 // THEN SEE THE OUTPUT FILE
