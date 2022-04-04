@@ -36,6 +36,7 @@ static void sigUser(int signNo){
     }else if(signNo == SIGTSTP){
         //ex. CTRL-Z
         printf("\nReceived SIGTSTP\n");
+        exit(0);
     }else{
         printf("Received %d Signal\n", signNo);
     }
