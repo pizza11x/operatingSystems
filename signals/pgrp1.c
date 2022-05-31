@@ -12,4 +12,5 @@ int main (void) {
         printf ("Child PID %d PGRP %d waits\n",getpid(),getpgid(0)); 
     else
         printf ("Parent PID %d PGRP %d waits\n",getpid(),getpgid(0)); pause (); /* Aspetta un segnale */
+        
 }
