@@ -4,7 +4,7 @@
 
 #define SIZE 1024
 
-int main(int argc, char** argv){
+int main(void){
     int pfd[2], pid;
     if(pipe(pfd) == -1){
         perror("Pipe function failed!\n");
