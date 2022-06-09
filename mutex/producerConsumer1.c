@@ -47,7 +47,7 @@ int main(int argc, char **argv){
 void *produce(void *arg){
     while(1){
         pthread_mutex_lock(&shared.mutex);
-        if(shared.nPut > nItems){
+        if(shared.nPut >= nItems){
             pthread_mutex_unlock(&shared.mutex);
             return(NULL); // array full
         }
