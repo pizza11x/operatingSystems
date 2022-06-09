@@ -3,9 +3,15 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <pthread.h>
+
 int myGlobal;
 
 void *thread_function(void *);
+pthread_mutex_t myMutex = PTHREAD_MUTEX_INITIALIZER;
 
 int main(){
     pthread_t myThread;
@@ -15,7 +21,9 @@ int main(){
         exit(-1);
     }
     for(i = 0; i<20; i++){
+        pthread_mutex_lock(&myMutex);
         myGlobal += 1;
+        pthread_mutex_unlock(&myMutex);
         printf("o");
         fflush(stdout);
         sleep(1);
@@ -32,12 +40,14 @@ int main(){
 void *thread_function(void *arg){
     int i,j;
     for(i = 0; i<20; i++){
+        pthread_mutex_lock(&myMutex);
         j = myGlobal;
         j += 1;
         printf(".");
         fflush(stdout);
         sleep(1);
         myGlobal = j;
+        pthread_mutex_unlock(&myMutex);
     }
     return NULL;
 }
