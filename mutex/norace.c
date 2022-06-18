@@ -3,11 +3,6 @@
 #include <unistd.h>
 #include <pthread.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-
 int myGlobal;
 
 void *thread_function(void *);
