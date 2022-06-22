@@ -1,5 +1,5 @@
 # exercisesSO
-Operating Systems Exercises
+This repository includes exercises for practicing Operating Systems.
 
 # Preliminary steps
 - Open Terminal
