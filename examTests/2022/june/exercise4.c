@@ -11,8 +11,6 @@ int main(int argc, char** argv){
     int bytesReads;
     int offset = 0;
 
-    printf("Hello Worlds!\n");
-
     //Check Argument number
     if(argc < 2){
         printf("Usage: %s name_file\n", argv[0]);
