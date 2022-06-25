@@ -1,3 +1,16 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "condition_variable": "c",
+        "bit": "c",
+        "*.tcc": "c",
+        "chrono": "c",
+        "memory_resource": "c",
+        "optional": "c",
+        "mutex": "c",
+        "numbers": "c",
+        "ratio": "c",
+        "type_traits": "c",
+        "variant": "c"
+    }
 }
