@@ -1,0 +1,44 @@
+N = 5
+M = 20
+array int randNumb[N-1];
+mutex obj = 1;
+semaphore canProduce = 0;
+array semaphore canConsume[N-1] = 0;
+
+
+int main(){
+
+    producer();
+
+    for(int i=0; i<N-1; i++)
+        consumer(i);
+
+}
+
+producer(){
+    int indexMin;
+    while(1){
+         indexMin = 0;
+        for(j=0; j<N-1; j++){
+            randNumb[j] = rand(0,M);
+            if(j > 0)
+                if(randNumb[j] < randNumb[indexMin])
+                    indexMin = j;
+        }
+        lock(obj);
+            //Produce obj
+        unlock(obj);
+        signal(canConsume[indexMin]);
+        wait(canProduce);
+    }
+}
+
+consumer(int i){
+    while(1){
+        wait(canConsume[i]);
+        lock(obj);
+            //Consume obj
+        unlock(obj);
+        signal(canProduce);
+    }
+}
