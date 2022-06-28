@@ -1,0 +1,28 @@
+N = 10
+array semaphore[N] queue = 0
+semaphore ready = 0
+
+int main(){
+
+    hr();
+
+    for(int i = 0; i < N; i++)
+        candidates(i);
+}
+
+hr(){
+    int turn = 0;
+    do{
+        signal(queue[turn])
+        wait(ready)
+        //Interview with candidate
+    }while( turn < N);
+    //End Interviews
+
+}
+
+candidates(int i){
+    wait(queue[i])
+    signal(ready)
+    //Interview
+}
