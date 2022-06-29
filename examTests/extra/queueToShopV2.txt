@@ -1,0 +1,90 @@
+/*
+    Problem:
+        3 entities: guardsman, people, employees
+
+        Guardsman: he takes care to let a predefinide number of people  enter the shop at a time 
+                  (i.e 1, 2, .., N) and qhen they exit he repeats its cycle
+        
+        People: they wait their turn to enter the store, once inside, they wait for a salesperson
+                to serve them; as soon as they are served, they leave the shop and report.
+        
+        Employees: As soon as they are free, they serve the customers and go to a shoe shelf to find
+                   the pair of shoes
+*/
+
+N = 10 --> people who can enter
+K = 25 --> people
+J = 5 --> employees
+P = 30 --> shelves
+
+semaphore people_allowed = N
+semaphore people_in_queue = 0
+semaphore turn = 0
+semaphore consumer = 0
+semaphore employee = J
+
+mutex shelf_access
+
+array: shelf[P] = 100
+
+main(){
+    create_process(guardsman);
+
+    for i = 0 to J
+        create_process(employee);
+
+    for i = 0 to K
+        create_process(person)
+}
+
+guardsman(){
+    while(1){
+        //Wait for people to arrive
+        wait(people_in_queue);
+
+        //If there are free seats in the shop
+        wait(people_allowed);
+
+        //Let in
+        signal(turn);
+    }
+}
+
+person(){
+    //Join the queue
+    signal(people_in_queue);
+
+    //Wait turn
+    wait(turn);
+
+    //Enter in the shop and signals the presence
+    signal(consumer);
+
+    //Wait employee
+    wait(employee);
+
+    /* PAY SHOES */
+    pay();
+
+    //Go out
+    signal(people_allowed);
+}
+
+employee(){
+    while(1){
+        //Wait consumer
+        wait(consumer);
+
+        //Generate shelf random place
+        place_shoes = rand(1, P);
+
+        //Take shoes
+        lock(shelf_access);
+            shelf[place_shoes]--;
+        unlock(shelf_access)
+
+        //Make the consumer go away
+        signal(employee);
+
+    }
+}
