@@ -12,17 +12,21 @@ int main(){
 
 hr(){
     int turn = 0;
-    do{
-        signal(queue[turn])
+    while( turn <= N);
         wait(ready)
+        signal(queue[turn])
+        
         //Interview with candidate
-    }while( turn < N);
+        interview()
+        turn++;
+    }
     //End Interviews
 
 }
 
 candidates(int i){
-    wait(queue[i])
     signal(ready)
+    wait(queue[i])
     //Interview
+    interview()
 }
