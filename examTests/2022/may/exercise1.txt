@@ -12,7 +12,7 @@ int main(){
 
 hr(){
     int turn = 0;
-    while( turn <= N);
+    while( turn < N);
         wait(ready)
         signal(queue[turn])
         
