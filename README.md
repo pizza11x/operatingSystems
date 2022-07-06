@@ -1,4 +1,4 @@
-# exercisesSO
+# Operating Systems
 This repository includes exercises for practicing Operating Systems.
 
 # Preliminary steps
