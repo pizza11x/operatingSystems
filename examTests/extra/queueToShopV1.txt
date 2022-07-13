@@ -1,0 +1,50 @@
+/*
+    Problem:
+        2 entities: guardsman, people
+
+        Guardsman: he takes care to let a predefinide number of people  enter the shop at a time 
+                  (i.e 1, 2, .., N) and qhen they exit he repeats its cycle
+        
+        People: they wait their turn to enter the store, shop inside it and then go out signaling the exit
+*/
+
+N = 10 --> people who can enter
+K = 25 --> people
+
+semaphore people_allowed = N
+semaphore people_in_queue = 0
+semaphore turn = 0
+
+int main(){
+    create_process(guardsman);
+
+    for i=0 to K;
+        create_process(person())
+}
+
+guardsman(){
+    while(1){
+        //Wait for people to arrive
+        wait(people_in_queue);
+
+        //If there are free seats in the shop
+        wait(people_allowed);
+
+        //Let in
+        signal(turn);
+    }
+}
+
+person(){
+    //Join the queue
+    signal(people_in_queue);
+
+    //Wait you turn
+    wait(turn);
+
+    /* SHOPPING */
+    shopping();
+
+    //Go out
+    signal(people_allowed);
+}

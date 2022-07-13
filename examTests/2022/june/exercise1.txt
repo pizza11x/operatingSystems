@@ -1,9 +1,9 @@
 N = 5
 M = 20
 array int randNumb[N-1];
-mutex obj = 1;
-semaphore canProduce = 0;
-array semaphore canConsume[N-1] = 0;
+mutex mObj = 1;
+semaphore sCanProduce = 0;
+array semaphore sCanConsume[N-1] = 0;
 
 
 int main(){
@@ -25,20 +25,20 @@ producer(){
                 if(randNumb[j] < randNumb[indexMin])
                     indexMin = j;
         }
-        lock(obj);
+        lock(mObj);
             //Produce obj
-        unlock(obj);
-        signal(canConsume[indexMin]);
-        wait(canProduce);
+        unlock(mObj);
+        signal(sCanConsume[indexMin]);
+        wait(sCanProduce);
     }
 }
 
 consumer(int i){
     while(1){
-        wait(canConsume[i]);
-        lock(obj);
+        wait(sCanConsume[i]);
+        lock(mObj);
             //Consume obj
-        unlock(obj);
-        signal(canProduce);
+        unlock(mObj);
+        signal(sCanProduce);
     }
 }

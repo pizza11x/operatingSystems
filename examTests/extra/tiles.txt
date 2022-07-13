@@ -1,0 +1,84 @@
+/*
+    Problem:
+        In a factory, N workers prepare tiles to be baked in a oven capable of baking M at the same time.
+        At the exit from the oven K workers look at the tiles to decorate them according to this sequence:
+            - If he finds a faulty tile start to take from the oven 2 at a time.
+            - Otherwise he take 1 at a time.
+*/
+N = 25 --> tot infornators
+K = 30 --> tot decorators
+M = 10 --> oven capable
+semaphore infornator = 10
+semaphore decorator = 10
+semaphore oven_full = 0
+semaphore oven_empty = M
+
+mutex resources_access = 1
+
+int index_tile = -1
+int quality_tile
+array tiles[1000]
+boolean flagDefectiveTile = false
+
+main(){
+    for i = 0 to N
+        create_process(infornator);
+
+    for j = 0 to K
+        create_process(decorator);
+}
+
+infornator(){
+     while(1){
+        //Takes the place
+        wait(infornator);
+
+        //Check oven space
+        wait(oven_empty);
+
+        //Resourse preparation
+        lock(resources_access);
+            index_tile++;
+            quality_tile = rand(0,1);
+            tiles[index_tile] = quality_tile;
+        unlock(resources_access);
+
+        //Take up oven space
+        signal(oven_full);
+
+        /* Tile cooks */
+        tileCooks();
+
+        signal(infornator);
+    }
+}
+
+decorator(){
+    while(1){
+        //Take the place
+        wait(decorator);
+
+        //Wait for the oven full
+        wait(oven_full);
+        
+        //Check quality tile
+        if(tiles[index_tile] == 0){
+            lock(resources_access);
+                wait(oven_empty);
+                index_tile -= 2;
+                signal(oven_empty);
+                signal(oven_empty);
+            unlock(resources_access);
+        }else (tiles[index_tile] == 1){
+            lock(resources_access)
+                index_tile--;
+                signal(oven_full);
+            unlock(resources_access);
+        }
+
+        /* DECORATE */
+        decorateTile();
+        signal(decorator);
+    
+    }
+}
