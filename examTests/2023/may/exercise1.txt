@@ -1,12 +1,3 @@
-In un pub è in atto un gioco goliardico. L'oste pone M pinte di birra sul bancone che N avventori (N > M) 
-devono accaparrarsi (una pinta ciascuno) quanto prima.
-chi riesce a prendere la propria pinta, la beve e Successivamente ripone sul bancone
-il boccale, mentre coloro I quali sono rimasti senza attendono il prossimo
-giro. Il prossimo giro ha inizio solo dopo che tutti gli avventori hanno terminato di bere la propria birra,
- riposto il boccale sul bancone e l'oste ha riempito nuovamente gli N boccali. Il gioco termina quando tutti gli avventori sono ubriachi e
-  non riescono più a giocare. Usare semafori e variabili di condizione.
-
-
 int:  M = 4; //Numero di pinte
 int:  N = 6; //Numero di avventori
 bool:  pinte[M] = [false, false,false, false]; //Array di pinte inizializzato a false in quanto sono tutte vuote
@@ -16,9 +7,10 @@ semaphore bin: semAwaitRestart = 1;
 int: indexCurrPinta = 0;
 
 processo avventori(){
-    bool hasConsume = false;
+    bool hasConsume;
     int lvlUbriachezza = 0;
     while(lvlUbriachezza < 3){
+        hasConsume = false;
         wait(semStart);
         lock(mutBancone);
             if(indexCurrPinta < M){
